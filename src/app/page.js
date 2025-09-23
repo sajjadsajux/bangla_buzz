@@ -1,5 +1,7 @@
+import Banner from "@/components/Banner";
 import BlogCard from "@/components/BlogCard";
 import Categories from "@/components/Categories";
+import TrendingTopics from "@/components/TrendingTopics";
 
 export default function Home() {
   const blogs = [
@@ -18,17 +20,23 @@ export default function Home() {
   ];
 
   return (
-    <section>
-      <h2 className="text-2xl font-bold mb-6 text-center">Latest Blogs</h2>
-
-      <div className="grid md:grid-cols-3 gap-6">
-        {blogs.map((blog) => (
-          <BlogCard key={blog.id} id={blog.id} title={blog.title} category={blog.category} excerpt={blog.excerpt} />
-        ))}
-      </div>
-      <div>
-        <Categories />
-      </div>
-    </section>
+    <main>
+      <section>
+        <Banner />
+      </section>
+      <section>
+        <TrendingTopics />
+      </section>
+      <section>
+        <div className="grid md:grid-cols-3 gap-6">
+          {blogs.map((blog) => (
+            <BlogCard key={blog.id} id={blog.id} title={blog.title} category={blog.category} excerpt={blog.excerpt} />
+          ))}
+        </div>
+        <div>
+          <Categories />
+        </div>
+      </section>
+    </main>
   );
 }

@@ -47,23 +47,24 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <ThemeToggle />
 
         <div className="navbar-end">
+          <ThemeToggle />
+
           {status === "loading" ? (
             <span>Loading...</span>
           ) : session ? (
             <div className="flex items-center gap-2">
-              <Link href="/dashboard" className="mr-2 btn btn-sm btn-primary">
+              <Link href="/dashboard" className="mr-2 btn btn-sm btn-primary rounded-2xl">
                 Dashboard
               </Link>
               <span>{session.user.name || session.user.email}</span>
-              <button onClick={() => signOut({ callbackUrl: "/login" })} className="btn btn-sm btn-error">
+              <button onClick={() => signOut({ callbackUrl: "/login" })} className="btn btn-sm btn-error rounded-2xl">
                 Logout
               </button>
             </div>
           ) : (
-            <Link href="/login" className="btn btn-sm btn-primary">
+            <Link href="/login" className="btn btn-sm btn-primary rounded-2xl">
               Login
             </Link>
           )}
