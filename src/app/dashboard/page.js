@@ -1,80 +1,33 @@
 "use client";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { BookOpen, PlusCircle, Globe } from "lucide-react"; // ✅ nice icons
 
 export default function Dashboard() {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function fetchBlogs() {
-      setLoading(true);
-      try {
-        const res = await fetch("/api/blogs/user");
-        const data = await res.json();
-
-        if (!res.ok) {
-          setError(data.error || "Failed to fetch blogs");
-          setBlogs([]);
-        } else {
-          setBlogs(data);
-        }
-      } catch (err) {
-        setError(err.message);
-      }
-      setLoading(false);
-    }
-
-    fetchBlogs();
-  }, []);
-
   return (
-    <section className="max-w-4xl mx-auto mt-10">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">My Blogs</h2>
-        <Link href="/create-blog" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-          + Create Blog
+    <section className="max-w-5xl mx-auto mt-12 px-4">
+      <h2 className="text-3xl font-bold mb-8 text-center">📊 My Dashboard</h2>
+
+      <div className="grid md:grid-cols-3 gap-6">
+        {/* My Blogs */}
+        <Link href="/dashboard/my-blogs" className="flex flex-col items-center justify-center bg-white shadow-md rounded-2xl p-6 border hover:shadow-lg hover:-translate-y-1 transition-all">
+          <BookOpen className="w-12 h-12 text-blue-600 mb-4" />
+          <h3 className="text-lg font-semibold">My Blogs</h3>
+          <p className="text-sm text-gray-500 text-center">See and manage your own blogs</p>
         </Link>
-      </div>
 
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      {!loading && !error && blogs.length === 0 && <p>You haven’t created any blogs yet.</p>}
+        {/* Create Blog */}
+        <Link href="/dashboard/create-blog" className="flex flex-col items-center justify-center bg-blue-600 text-white shadow-md rounded-2xl p-6 hover:bg-blue-700 hover:-translate-y-1 transition-all">
+          <PlusCircle className="w-12 h-12 mb-4" />
+          <h3 className="text-lg font-semibold">Create Blog</h3>
+          <p className="text-sm opacity-80 text-center">Write a new blog post</p>
+        </Link>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        {blogs.map((blog) => (
-          <div key={blog._id} className="bg-white shadow-md rounded-lg p-4">
-            <h3 className="text-lg font-bold">{blog.title}</h3>
-            <p className="text-sm text-gray-500 mb-2">{blog.category}</p>
-            <p className="text-gray-700 mb-2">{blog.content.slice(0, 100)}...</p>
-            <p className="text-xs text-gray-400">Created at: {new Date(blog.createdAt).toLocaleString()}</p>
-
-            <div className="mt-2 flex gap-2">
-              <Link href={`/edit-blog/${blog._id}`} className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">
-                Edit
-              </Link>
-              <button
-                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                onClick={async () => {
-                  if (!confirm("Are you sure you want to delete this blog?")) return;
-
-                  const res = await fetch(`/api/blogs/${blog._id}`, { method: "DELETE" });
-                  const data = await res.json();
-
-                  if (res.ok) {
-                    alert("Blog deleted!");
-                    setBlogs(blogs.filter((b) => b._id !== blog._id));
-                  } else {
-                    alert(data.error || "Failed to delete blog");
-                  }
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+        {/* All Blogs */}
+        <Link href="/dashboard/all-blogs" className="flex flex-col items-center justify-center bg-white shadow-md rounded-2xl p-6 border hover:shadow-lg hover:-translate-y-1 transition-all">
+          <Globe className="w-12 h-12 text-green-600 mb-4" />
+          <h3 className="text-lg font-semibold">All Blogs</h3>
+          <p className="text-sm text-gray-500 text-center">Browse blogs from all users</p>
+        </Link>
       </div>
     </section>
   );

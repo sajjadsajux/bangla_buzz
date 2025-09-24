@@ -2,8 +2,8 @@
 
 const Banner = () => {
   return (
-    <div className="hero min-h-[60vh] bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="hero min-h-[60vh] bg-primary/20">
+      <div className="hero-content max-w-full flex-col lg:flex-row-reverse">
         {/* Right side image */}
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" className="max-w-sm rounded-lg shadow-2xl" alt="BanglaBuzz" />
 
