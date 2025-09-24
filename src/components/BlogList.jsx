@@ -27,7 +27,7 @@ const BlogList = () => {
 
       <div className="grid md:grid-cols-3 gap-6">
         {blogs.map((blog) => (
-          <BlogCard key={blog._id} id={blog._id} title={blog.title} category={blog.category} excerpt={blog.content.substring(0, 100) + "..."} image={blog.image} authorName={blog.author?.name || "Unknown"} postedDate={blog.postedDate} lastEditedDate={blog.lastEditedDate} />
+          <BlogCard key={blog._id} id={blog._id} title={blog.title} category={blog.category} excerpt={blog.content.substring(0, 100) + "..."} image={blog.image} authorName={blog.author?.name || "Unknown"} postedDate={blog.createdAt} lastEditedDate={blog.updatedAt} />
         ))}
       </div>
 
