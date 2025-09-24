@@ -52,12 +52,16 @@ export async function GET(req) {
     const limit = parseInt(searchParams.get("limit")) || 6;
     const skip = (page - 1) * limit;
 
+    const category = searchParams.get("category"); // ✅ filter by category if provided
+
     const client = await clientPromise;
     const db = client.db("bangla_buzzDB");
 
-    const blogs = await db.collection("blogs").find({}).sort({ createdAt: -1 }).skip(skip).limit(limit).toArray();
+    const query = category ? { category } : {};
 
-    const total = await db.collection("blogs").countDocuments();
+    const blogs = await db.collection("blogs").find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).toArray();
+
+    const total = await db.collection("blogs").countDocuments(query);
 
     return new Response(JSON.stringify({ blogs, total, page, limit }), { status: 200 });
   } catch (error) {
