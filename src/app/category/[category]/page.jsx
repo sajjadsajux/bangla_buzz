@@ -17,7 +17,7 @@ export default async function CategoryPage({ params }) {
       ) : (
         <div className="grid md:grid-cols-3 gap-6">
           {blogs.map((blog) => (
-            <BlogCard key={blog._id} id={blog._id} title={blog.title} category={blog.category} excerpt={blog.content.substring(0, 100) + "..."} />
+            <BlogCard key={blog._id} id={blog._id} title={blog.title} category={blog.category} postedDate={blog.createdAt} image={blog.image} authorName={blog.author.name} excerpt={blog.content.substring(0, 100) + "..."} />
           ))}
         </div>
       )}
