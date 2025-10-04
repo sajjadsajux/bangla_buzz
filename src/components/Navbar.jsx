@@ -26,39 +26,47 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-base-100 ">
-      <div className="navbar  container mx-auto">
+    <div className="bg-base-100 w-full">
+      <div className="navbar container mx-auto ">
+        {/* Left Section */}
         <div className="navbar-start">
+          {/* Mobile Menu */}
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
             </div>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow">
               {links}
             </ul>
           </div>
-          <Link href="/" className=" text-xl">
+
+          {/* Logo */}
+          <Link href="/" className="text-xl font-bold whitespace-nowrap">
             BanglaBuzz
           </Link>
         </div>
 
+        {/* Center Nav (Hidden on Mobile) */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+          <ul className="menu menu-horizontal px-1 gap-2">{links}</ul>
         </div>
 
-        <div className="navbar-end">
+        {/* Right Section */}
+        <div className="navbar-end gap-2">
           <ThemeToggle />
 
           {status === "loading" ? (
-            <span>Loading...</span>
+            <span className="text-sm">Loading...</span>
           ) : session ? (
-            <div className="flex items-center gap-2">
-              <Link href="/dashboard" className="mr-2 btn btn-sm btn-primary rounded-2xl">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <Link href="/dashboard" className="btn btn-sm btn-primary rounded-2xl">
                 Dashboard
               </Link>
-              <span>{session.user.name || session.user.email}</span>
+              <span title={session.user.name || session.user.email} className="text-sm truncate max-w-[100px] sm:max-w-[200px]">
+                {session.user.name || session.user.email}
+              </span>
               <button onClick={() => signOut({ callbackUrl: "/login" })} className="btn btn-sm btn-error rounded-2xl">
                 Logout
               </button>
