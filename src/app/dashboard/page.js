@@ -16,7 +16,7 @@ export default function Dashboard() {
         </Link>
 
         {/* Create Blog */}
-        <Link href="/dashboard/create-blog" className="flex flex-col items-center justify-center bg-blue-600 text-white shadow-md rounded-2xl p-6 hover:bg-blue-700 hover:-translate-y-1 transition-all">
+        <Link href="/create-blog" className="flex flex-col items-center justify-center bg-blue-600 text-white shadow-md rounded-2xl p-6 hover:bg-blue-700 hover:-translate-y-1 transition-all">
           <PlusCircle className="w-12 h-12 mb-4" />
           <h3 className="text-lg font-semibold">Create Blog</h3>
           <p className="text-sm opacity-80 text-center">Write a new blog post</p>
